@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Management - Healthcare Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styling */
+        header {
+            background: linear-gradient(135deg, #00796b, #00796b);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        header nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main content styling */
+        main {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        #queue-management {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        #queue-management h2 {
+            margin-top: 0;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+        }
+
+        .search-bar input,
+        .search-bar select {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .search-bar button {
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #004d40;
+        }
+
+        .hospital-card {
+            background: #e1f5fe;
+            border: 1px solid #b3e5fc;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hospital-card img {
+            max-width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .hospital-card h4 {
+            margin: 0;
+            color: #003366;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .remove-btn,
+        .book-btn {
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .remove-btn {
+            background: #d32f2f;
+            color: white;
+        }
+
+        .remove-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        .book-btn {
+            background: #388e3c;
+            color: white;
+        }
+
+        .book-btn:hover {
+            background-color: #2c6b2f;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 50px;
+            max-width: 500px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .modal-content button {
+            margin: 10px;
+        }
+
+        footer {
+            background: #454d6e;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            #queue-management {
+                padding: 20px;
+            }
+
+            .search-bar input,
+            .search-bar select,
+            .search-bar button {
+                font-size: 0.9rem;
+            }
+
+            .hospital-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hospital-card img {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Healthcare Portal</h1>
+        <h3>Manage Your Queue</h3>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <!-- <li><a href="queue.html">Queue Management</a></li> -->
+                <li><a href="find-hospitals.html">Find Hospitals</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <!-- <li><a href="login.html">Login</a></li> -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="queue-management">
+            <h2>Your Queue</h2>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search by hospital name">
+                <button onclick="filterQueue()">Search</button>
+            </div>
+            <div id="queue-list">
+                <!-- Dynamically populated list of queued hospitals -->
+            </div>
+            <div id="pagination">
+                <!-- Pagination controls will be added here -->
+            </div>
+        </section>
+    </main>
+    <!-- <footer>
+        <p>&copy; 2024 Healthcare Portal. All rights reserved.</p>
+    </footer> -->
+
+    <!-- Modal for confirmation -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <h3>Are you sure you want to remove this hospital from the queue?</h3>
+            <button class="confirm-btn" id="confirm-remove">Yes, Remove</button>
+            <button class="confirm-btn" id="cancel-remove">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Modal for booking appointment -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <h3>Book Appointment</h3>
+            <form id="booking-form">
+                <label for="appointment-date">Date:</label>
+                <input type="date" id="appointment-date" name="appointment-date" required><br><br>
+                <label for="appointment-time">Time:</label>
+                <input type="time" id="appointment-time" name="appointment-time" required><br><br>
+                <button type="submit" class="book-btn">Confirm Booking</button>
+                <button type="button" class="book-btn" id="cancel-booking">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let removeIndex = null; // Store index of hospital to be removed
+        let bookIndex = null; // Store index of hospital to book appointment
+
+        // Function to remove a hospital from the queue
+        function removeFromQueue(index) {
+            removeIndex = index; // Store the index of the hospital to remove
+            document.getElementById('confirmation-modal').style.display = 'flex';
+        }
+
+        // Confirm removal of the hospital
+        document.getElementById('confirm-remove').addEventListener('click', function() {
+            let queue = JSON.parse(localStorage.getItem('hospitalQueue')) || [];
+            queue.splice(removeIndex, 1);
+            localStorage.setItem('hospitalQueue', JSON.stringify(queue));
+            renderQueue();
+            document.getElementById('confirmation-modal').style.display = 'none';
+        });
+
+        // Cancel removal
+        document.getElementById('cancel-remove').addEventListener('click', function() {
+            document.getElementById('confirmation-modal').style.display = 'none';
+        });
+
+        // Function to render the queue list
+        function renderQueue() {
+            const queueList = document.getElementById('queue-list');
+            let queue = JSON.parse(localStorage.getItem('hospitalQueue')) || [];
+
+            queueList.innerHTML = ''; // Clear current content
+
+            if (queue.length === 0) {
+                queueList.innerHTML = '<p>Your queue is empty.</p>';
+                return;
+            }
+
+            queue.forEach((hospital, index) => {
+                queueList.innerHTML += `
+                    <div class="hospital-card">
+                        <img src="images/hospital-placeholder.jpg" alt="${hospital.name}">
+                        <div>
+                            <h4>${hospital.name}</h4>
+                            <p>Address: ${hospital.address}</p>
+                            <p>Phone: ${hospital.phone}</p>
+                        </div>
+                        <div class="button-group">
+                            <button class="remove-btn" onclick="removeFromQueue(${index})">Remove</button>
+                            <button class="book-btn" onclick="bookAppointment(${index})">Book Appointment</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Add pagination controls
+            addPaginationControls(queue.length);
+        }
+
+        // Function to add pagination controls
+        function addPaginationControls(totalItems) {
+            const itemsPerPage = 5;
+            const pageCount = Math.ceil(totalItems / itemsPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            for (let i = 1; i <= pageCount; i++) {
+                pagination.innerHTML += `<button onclick="changePage(${i})">${i}</button>`;
+            }
+        }
+
+        // Function to change page
+        function changePage(pageNumber) {
+            const itemsPerPage = 5;
+            const start = (pageNumber - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            let queue = JSON.parse(localStorage.getItem('hospitalQueue')) || [];
+            const queueList = document.getElementById('queue-list');
+            
+            queueList.innerHTML = ''; // Clear current content
+
+            if (queue.length === 0) {
+                queueList.innerHTML = '<p>Your queue is empty.</p>';
+                return;
+            }
+
+            const paginatedQueue = queue.slice(start, end);
+            paginatedQueue.forEach((hospital, index) => {
+                queueList.innerHTML += `
+                    <div class="hospital-card">
+                        <img src="images/hospital-placeholder.jpg" alt="${hospital.name}">
+                        <div>
+                            <h4>${hospital.name}</h4>
+                            <p>Address: ${hospital.address}</p>
+                            <p>Phone: ${hospital.phone}</p>
+                        </div>
+                        <div class="button-group">
+                            <button class="remove-btn" onclick="removeFromQueue(${start + index})">Remove</button>
+                            <button class="book-btn" onclick="bookAppointment(${start + index})">Book Appointment</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Initial render
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQueue();
+            changePage(1); // Start with page 1
+        });
+
+        // Function to filter the queue
+        function filterQueue() {
+            const searchValue = document.getElementById('search-input').value.toLowerCase();
+            const queueList = document.getElementById('queue-list');
+            let queue = JSON.parse(localStorage.getItem('hospitalQueue')) || [];
+            
+            const filteredQueue = queue.filter(hospital => hospital.name.toLowerCase().includes(searchValue));
+            queueList.innerHTML = '';
+
+            if (filteredQueue.length === 0) {
+                queueList.innerHTML = '<p>No hospitals found matching your search.</p>';
+                return;
+            }
+
+            filteredQueue.forEach((hospital, index) => {
+                queueList.innerHTML += `
+                    <div class="hospital-card">
+                        <img src="images/hospital-placeholder.jpg" alt="${hospital.name}">
+                        <div>
+                            <h4>${hospital.name}</h4>
+                            <p>Address: ${hospital.address}</p>
+                            <p>Phone: ${hospital.phone}</p>
+                        </div>
+                        <div class="button-group">
+                            <button class="remove-btn" onclick="removeFromQueue(${index})">Remove</button>
+                            <button class="book-btn" onclick="bookAppointment(${index})">Book Appointment</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Function to handle booking an appointment
+        function bookAppointment(index) {
+            bookIndex = index; // Store the index of the hospital to book appointment
+            document.getElementById('booking-modal').style.display = 'flex';
+        }
+
+        // Handle form submission for booking
+        document.getElementById('booking-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            let queue = JSON.parse(localStorage.getItem('hospitalQueue')) || [];
+            let hospital = queue[bookIndex];
+            let date = document.getElementById('appointment-date').value;
+            let time = document.getElementById('appointment-time').value;
+
+            // For demonstration purposes, we'll just log the appointment details.
+            // You would replace this with actual booking logic, such as sending data to a server.
+            console.log(`Booking appointment at ${hospital.name} on ${date} at ${time}`);
+            alert(`Appointment booked at ${hospital.name} on ${date} at ${time}.`);
+
+            document.getElementById('booking-modal').style.display = 'none';
+        });
+
+        // Cancel booking
+        document.getElementById('cancel-booking').addEventListener('click', function() {
+            document.getElementById('booking-modal').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,764 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: linear-gradient(135deg, #4fa3ff, #003366);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    animation: headerSlideIn 1s ease-out;
+}
+
+@keyframes headerSlideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+nav ul {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ffcc00;
+    transform: scale(1.1);
+}
+
+footer {
+    background-color: #003366;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
+    animation: footerFadeIn 1s ease-out;
+}
+
+@keyframes footerFadeIn {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 25px;
+    margin: 10px 0;
+    background-color: #4fa3ff;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.button:hover {
+    background-color: #003366;
+    transform: scale(1.05);
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    max-width: 500px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: cardFadeIn 1s ease-out;
+}
+
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Additional styles for form elements and sections */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 1.2rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+    width: calc(100% - 24px);
+}
+
+button {
+    background-color: #4fa3ff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+    background-color: #003366;
+    transform: scale(1.05);
+}
+
+#search-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#search-form input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: calc(100% - 22px);
+    margin-bottom: 10px;
+}
+
+#search-form button {
+    background-color: #4fa3ff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#search-form button:hover {
+    background-color: #003366;
+    transform: scale(1.05);
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animated {
+    animation: fadeIn 1s ease-in;
+}
+/* Existing styles */
+
+/* Add to styles.css */
+#login-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: linear-gradient(135deg, #4fa3ff, #003366);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: auto;
+}
+
+#login-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+#login-section form {
+    width: 100%;
+}
+
+#login-section label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 1rem;
+}
+
+#login-section input {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#login-section button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#login-section button:hover {
+    background-color: #002244;
+    transform: translateY(-2px);
+}
+
+#login-status, #register-status {
+    margin-top: 10px;
+    color: #ffcc00;
+}
+
+#login-section p {
+    margin: 15px 0;
+}
+
+#login-section a {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+#login-section a:hover {
+    text-decoration: underline;
+}
+
+/* Register section styles */
+#register-section {
+    background: white;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+#register-section h2 {
+    color: #003366;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+/* Existing styles */
+
+/* Add to styles.css */
+#queue-section {
+    padding: 40px;
+    background: linear-gradient(135deg, #4fa3ff, #003366);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 1200px;
+    margin: auto;
+}
+
+#queue-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+#search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#search-container label {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+#search-container input {
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 400px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+#search-container button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#search-container button:hover {
+    background-color: #002244;
+    transform: translateY(-2px);
+}
+
+.card-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.card-container h3 {
+    color: #003366;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+#hospital-list, #department-selection, #appointment-booking {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#hospital-list div, #department-selection button {
+    margin: 10px 0;
+    padding: 15px;
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#hospital-list div:hover, #department-selection button:hover {
+    background-color: #e1e1e1;
+    transform: translateY(-2px);
+}
+
+#appointment-form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 1rem;
+}
+
+#appointment-form input, #appointment-form button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#appointment-form button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#appointment-form button:hover {
+    background-color: #002244;
+    transform: translateY(-2px);
+}
+/* Register Section */
+.box-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.box-container h2 {
+    color: #003366;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.box-container label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.box-container input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.box-container button {
+    background-color: #003366;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.box-container button:hover {
+    background-color: #002244;
+}
+
+.box-container p {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.box-container a {
+    color: #003366;
+    text-decoration: none;
+}
+
+.box-container a:hover {
+    text-decoration: underline;
+}
+/* Existing styles... */
+
+#appointmentStatus {
+    margin-top: 2rem;
+}
+
+#appointmentTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#appointmentTable th, #appointmentTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#appointmentTable th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#appointmentTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+/* Existing styles... */
+
+#bedAvailability {
+    margin-top: 2rem;
+}
+
+#bedTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#bedTable th, #bedTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#bedTable th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#bedTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+/* General Body Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+header {
+    background: linear-gradient(135deg, #4fa3ff, #003366);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ffcc00;
+    text-decoration: underline;
+}
+
+#logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 50px;
+}
+
+/* Main Section Styling */
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #003366;
+    margin-top: 0;
+}
+
+h3 {
+    color: #4fa3ff;
+}
+
+/* Form Styling */
+form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+form input, form select, form button {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #002244;
+}
+
+/* Card Styling */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+    margin: 10px 0;
+    color: #003366;
+}
+
+.card p {
+    margin: 10px 0;
+}
+
+/* Filter Container */
+.filter-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.filter-container input, .filter-container select {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.filter-container button {
+    background-color: #003366;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.filter-container button:hover {
+    background-color: #002244;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #003366;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+/* Menu button styles */
+.menu-button-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-button {
+    width: 30px;
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.menu-button div {
+    width: 100%;
+    height: 4px;
+    background-color: #000;
+}
+
+.menu-label {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #000;
+}
+
+/* Dropdown menu styles */
+.menu-items {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.menu-items a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-items a:last-child {
+    border-bottom: none;
+}
+
+.menu-items a:hover {
+    background-color: #f0f0f0;
+}
+
+.show-menu {
+    display: block;
+}
+.menu ul li a i {
+    margin-right: 10px;
+    font-size: 1.2rem; /* Adjust the size as needed */
+}
+.header-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px; /* Adjust width as needed */
+    height: 80px; /* Adjust height to match width */
+    border-radius: 60%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image covers the circle without distortion */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Optional: Adds a shadow for better visibility */
+}

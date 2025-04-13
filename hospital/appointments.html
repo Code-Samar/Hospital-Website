@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Hospitals - Healthcare Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add your existing CSS styles here */
+
+        #booking-form {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        #booking-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        #booking-form input,
+        #booking-form select,
+        #booking-form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            border-radius: 4px;
+        }
+
+        #booking-form input,
+        #booking-form select {
+            border: 1px solid #ccc;
+        }
+
+        #booking-form button {
+            background-color: #a7d4cf;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #booking-form button:hover {
+            background-color: #004d40;
+            transform: scale(1.02);
+        }
+
+        #appointments-list {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        #appointments-list h3 {
+            margin-top: 0;
+        }
+
+        .appointment-card {
+            background: #e1f5fe;
+            border: 1px solid #b3e5fc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Healthcare Portal</h1>
+        <h3>Appointment</h3>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="queue.html">Queue Management</a></li>
+                <!-- <li><a href="find-hospitals.html">Find Hospitals</a></li> -->
+                <li><a href="profile.html">Profile</a></li>
+                <!-- <li><a href="login.html">Login</a></li> -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="find-hospitals">
+            <h2>Find Hospitals Near You</h2>
+            <button id="current-location-btn">Find Hospitals Near Me</button>
+            <form id="search-form">
+                <label for="location">Enter Your Location:</label>
+                <input type="text" id="location" name="location" placeholder="City or ZIP Code" required>
+                <button type="submit">Search</button>
+            </form>
+            <div class="loading-spinner" id="loading-spinner"></div>
+            <div id="hospital-results">
+                <h3>Available Hospitals</h3>
+                <div id="hospital-list">
+                    <!-- Dynamic list of hospitals will be populated here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Form -->
+        <section id="booking-form">
+            <h2>Book an Appointment</h2>
+            <form id="appointment-form">
+                <label for="hospital-name">Hospital Name:</label>
+                <input type="text" id="hospital-name" name="hospital-name" required>
+                <label for="appointment-date">Appointment Date:</label>
+                <input type="date" id="appointment-date" name="appointment-date" required>
+                <label for="appointment-time">Appointment Time:</label>
+                <input type="time" id="appointment-time" name="appointment-time" required>
+                <label for="notes">Additional Notes:</label>
+                <textarea id="notes" name="notes" rows="4" placeholder="Any additional information"></textarea>
+                <button type="submit">Book Appointment</button>
+            </form>
+        </section>
+
+        <!-- Upcoming Appointments -->
+        <section id="appointments-list">
+            <h3>Upcoming Appointments</h3>
+            <ul id="appointment-list">
+                <!-- List of upcoming appointments will be populated here -->
+            </ul>
+        </section>
+
+        <!-- Map container -->
+        <div id="map" style="height: 400px; width: 100%; margin: 20px auto;"></div>
+    </main>
+    <!-- <footer> -->
+        <!-- <p>&copy; 2024 Healthcare Portal. All rights reserved.</p> -->
+    <!-- </footer> -->
+    
+    <!-- Modal for hospital details -->
+    <div id="hospital-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Hospital Name</h2>
+            <p id="modal-address">Address: </p>
+            <p id="modal-phone">Phone: </p>
+            <p id="modal-description">Description: </p>
+            <button id="add-to-queue-btn" class="add-to-queue-btn">Add to Queue</button>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+    <script>
+        const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+
+        function showHospitalDetails(hospital) {
+            document.getElementById('modal-title').textContent = hospital.name;
+            document.getElementById('modal-address').textContent = `Address: ${hospital.address}`;
+            document.getElementById('modal-phone').textContent = `Phone: ${hospital.phone}`;
+            document.getElementById('modal-description').textContent = `Description: ${hospital.description}`;
+            document.getElementById('hospital-modal').style.display = 'block';
+            
+            // Add to queue button click event
+            document.getElementById('add-to-queue-btn').onclick = function() {
+                addToQueue(hospital);
+            };
+        }
+
+        function addToQueue(hospital) {
+            let queue = JSON.parse(localStorage.getItem('hospitalQueue')) || [];
+            if (!queue.find(item => item.name === hospital.name)) {
+                queue.push(hospital);
+                localStorage.setItem('hospitalQueue', JSON.stringify(queue));
+                updateQueueList();
+                alert('Hospital added to queue!');
+            }
+        }
+
+        function updateQueueList() {
+            const queueList = document.getElementById('queue-list');
+            queueList.innerHTML = '';
+            const queue = JSON.parse(localStorage.getItem('hospitalQueue')) || [];
+            queue.forEach(hospital => {
+                queueList.innerHTML += `
+                    <li>
+                        ${hospital.name}
+                        <button onclick='removeFromQueue("${hospital.name}")'>Remove</button>
+                    </li>
+                `;
+            });
+        }
+
+        function removeFromQueue(name) {
+            const queue = JSON.parse(localStorage.getItem('hospitalQueue')) || [];
+            const index = queue.findIndex(hospital => hospital.name === name);
+            if (index > -1) {
+                queue.splice(index, 1);
+                localStorage.setItem('hospitalQueue', JSON.stringify(queue));
+                updateQueueList();
+            }
+        }
+
+        function bookAppointment(e) {
+            e.preventDefault();
+            const hospitalName = document.getElementById('hospital-name').value;
+            const appointmentDate = document.getElementById('appointment-date').value;
+            const appointmentTime = document.getElementById('appointment-time').value;
+            const notes = document.getElementById('notes').value;
+
+            const appointment = {
+                hospitalName,
+                appointmentDate,
+                appointmentTime,
+                notes
+            };
+
+            appointments.push(appointment);
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+            updateAppointmentsList();
+            document.getElementById('appointment-form').reset();
+        }
+
+        function updateAppointmentsList() {
+            const appointmentList = document.getElementById('appointment-list');
+            appointmentList.innerHTML = '';
+            appointments.forEach(appt => {
+                appointmentList.innerHTML += `
+                    <li class="appointment-card">
+                        <p><strong>Hospital:</strong> ${appt.hospitalName}</p>
+                        <p><strong>Date:</strong> ${appt.appointmentDate}</p>
+                        <p><strong>Time:</strong> ${appt.appointmentTime}</p>
+                        <p><strong>Notes:</strong> ${appt.notes}</p>
+                    </li>
+                `;
+            });
+        }
+
+        document.getElementById('appointment-form').addEventListener('submit', bookAppointment);
+
+        const closeModal = document.querySelector('.close');
+        closeModal.onclick = function() {
+            document.getElementById('hospital-modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('hospital-modal')) {
+                document.getElementById('hospital-modal').style.display = 'none';
+            }
+        }
+
+        document.getElementById('search-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const location = document.getElementById('location').value;
+            const spinner = document.getElementById('loading-spinner');
+            const resultsDiv = document.getElementById('hospital-list');
+
+            spinner.style.display = 'block';
+
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                resultsDiv.innerHTML = `
+                    <div class="hospital-card" onclick='showHospitalDetails({name: "Hospital 1", address: "123 Example St, City", phone: "(123) 456-7890", description: "General hospital with emergency services."})'>
+                        <img src="images/hospital1.jpg" alt="Hospital 1">
+                        <div>
+                            <h4>Hospital 1</h4>
+                            <p>Address: 123 Example St, City</p>
+                            <p>Phone: (123) 456-7890</p>
+                        </div>
+                    </div>
+                    <div class="hospital-card" onclick='showHospitalDetails({name: "Hospital 2", address: "456 Another Ave, City", phone: "(987) 654-3210", description: "Specialized in cardiology and neurology."})'>
+                        <img src="images/hospital2.jpg" alt="Hospital 2">
+                        <div>
+                            <h4>Hospital 2</h4>
+                            <p>Address: 456 Another Ave, City</p>
+                            <p>Phone: (987) 654-3210</p>
+                        </div>
+                    </div>
+                `;
+            }, 1000);
+        });
+
+        document.getElementById('current-location-btn').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const { latitude, longitude } = position.coords;
+                    console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+                }, function() {
+                    alert("Geolocation service failed.");
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
+
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+            new google.maps.Marker({
+                position: { lat: -34.397, lng: 150.644 },
+                map: map,
+                title: "Hospital 1"
+            });
+            new google.maps.Marker({
+                position: { lat: -34.307, lng: 150.744 },
+                map: map,
+                title: "Hospital 2"
+            });
+        }
+
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
+        script.async = true;
+        document.head.appendChild(script);
+
+        // Initialize queue list and appointments list on page load
+        window.onload = function() {
+            updateQueueList();
+            updateAppointmentsList();
+        };
+    </script>
+</body>
+</html>

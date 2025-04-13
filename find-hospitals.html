@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Hospitals - Healthcare Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e0f2f1; /* Light teal background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styling */
+        header {
+            background: linear-gradient(135deg, #004d40, #00796b); /* Dark teal gradient */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        header nav ul li a:hover {
+            text-decoration: underline;
+            color: #b2dfdb; /* Light teal color */
+        }
+
+        /* Main content styling */
+        main {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        #find-hospitals {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        #search-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        #search-form label {
+            font-weight: bold;
+            color: #00796b; /* Teal color */
+        }
+
+        #search-form input,
+        #search-form button {
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        #search-form input {
+            border-color: #00796b; /* Teal border color */
+        }
+
+        #search-form button {
+            background-color: #004d40; /* Dark teal */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #search-form button:hover {
+            background-color: #00332a; /* Even darker teal */
+            transform: scale(1.05);
+        }
+
+        #hospital-results {
+            margin-top: 20px;
+        }
+
+        .hospital-card {
+            background: #ffffff;
+            border: 1px solid #b2dfdb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .hospital-card:hover {
+            background-color: #e0f2f1; /* Light teal */
+            transform: scale(1.05);
+        }
+
+        .hospital-card img {
+            max-width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .hospital-card h4 {
+            margin: 0;
+            color: #004d40; /* Dark teal */
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #00796b;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none; /* Hide initially */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            #search-form {
+                flex-direction: column;
+            }
+
+            #search-form input,
+            #search-form button {
+                font-size: 0.9rem;
+            }
+
+            .hospital-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hospital-card img {
+                margin-bottom: 10px;
+            }
+        }
+
+        footer {
+            background: #004d40; /* Dark teal */
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            color: #888;
+            float: right;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #current-location-btn {
+            background-color: #004d40; /* Dark teal */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 10px 0;
+        }
+
+        #current-location-btn:hover {
+            background-color: #00332a; /* Even darker teal */
+        }
+
+        .add-to-queue-btn {
+            background-color: #ff5722; /* Deep orange */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-queue-btn:hover {
+            background-color: #e64a19; /* Darker orange */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Healthcare Portal</h1>
+        <h3>Find Hospital</h3>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="queue.html">Queue Management</a></li>
+                <!-- <li><a href="find-hospitals.html">Find Hospitals</a></li> -->
+                <li><a href="profile.html">Profile</a></li>
+                <!-- <li><a href="login.html">Login</a></li> -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="find-hospitals">
+            <h2>Find Hospitals Near You</h2>
+            <button id="current-location-btn">Find Hospitals Near Me</button>
+            <form id="search-form">
+                <label for="location">Enter Your Location:</label>
+                <input type="text" id="location" name="location" placeholder="City or ZIP Code" required>
+                <button type="submit">Search</button>
+            </form>
+            <div class="loading-spinner" id="loading-spinner"></div>
+            <div id="hospital-results">
+                <h3>Available Hospitals</h3>
+                <div id="hospital-list">
+                    <!-- Dynamic list of hospitals will be populated here -->
+                </div>
+            </div>
+        </section>
+        <!-- Map container -->
+        <div id="map" style="height: 400px; width: 100%; margin: 20px auto;"></div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Healthcare Portal. All rights reserved.</p>
+    </footer>
+    
+    <!-- Modal for hospital details -->
+    <div id="hospital-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Hospital Name</h2>
+            <p id="modal-address">Address: </p>
+            <p id="modal-phone">Phone: </p>
+            <p id="modal-description">Description: </p>
+            <button id="add-to-queue-btn" class="add-to-queue-btn">Add to Queue</button>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+    <script>
+        // Show modal with hospital details
+        function showHospitalDetails(hospital) {
+            document.getElementById('modal-title').textContent = hospital.name;
+            document.getElementById('modal-address').textContent = `Address: ${hospital.address}`;
+            document.getElementById('modal-phone').textContent = `Phone: ${hospital.phone}`;
+            document.getElementById('modal-description').textContent = `Description: ${hospital.description}`;
+            document.getElementById('hospital-modal').style.display = 'block';
+            
+            // Add to queue button click event
+            document.getElementById('add-to-queue-btn').onclick = function() {
+                addToQueue(hospital);
+            };
+        }
+
+        // Add hospital to queue
+        function addToQueue(hospital) {
+            // Add hospital data to local storage or session storage
+            let queue = JSON.parse(localStorage.getItem('hospitalQueue')) || [];
+            queue.push(hospital);
+            localStorage.setItem('hospitalQueue', JSON.stringify(queue));
+            
+            alert('Hospital added to queue!');
+        }
+
+        // Close modal
+        const closeModal = document.querySelector('.close');
+        closeModal.onclick = function() {
+            document.getElementById('hospital-modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('hospital-modal')) {
+                document.getElementById('hospital-modal').style.display = 'none';
+            }
+        }
+
+        // Sample JavaScript for dynamic search and map (simplified example)
+        document.getElementById('search-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const location = document.getElementById('location').value;
+            const spinner = document.getElementById('loading-spinner');
+            const resultsDiv = document.getElementById('hospital-list');
+
+            // Show loading spinner
+            spinner.style.display = 'block';
+
+            // Mock hospital data (replace with actual API call)
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                resultsDiv.innerHTML = `
+                    <div class="hospital-card" onclick='showHospitalDetails({name: "Hospital 1", address: "123 Example St, City", phone: "(123) 456-7890", description: "General hospital with emergency services."})'>
+                        <img src="images/hospital1.jpg" alt="Hospital 1">
+                        <div>
+                            <h4>Hospital 1</h4>
+                            <p>Address: 123 Example St, City</p>
+                            <p>Phone: (123) 456-7890</p>
+                        </div>
+                    </div>
+                    <div class="hospital-card" onclick='showHospitalDetails({name: "Hospital 2", address: "456 Another Ave, City", phone: "(987) 654-3210", description: "Specialized in cardiology and neurology."})'>
+                        <img src="images/hospital2.jpg" alt="Hospital 2">
+                        <div>
+                            <h4>Hospital 2</h4>
+                            <p>Address: 456 Another Ave, City</p>
+                            <p>Phone: (987) 654-3210</p>
+                        </div>
+                    </div>
+                `;
+            }, 1000); // Simulate loading time
+        });
+
+        // Get current location and find nearby hospitals
+        document.getElementById('current-location-btn').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const { latitude, longitude } = position.coords;
+                    // Use latitude and longitude to find nearby hospitals
+                    // For demonstration, let's just log them
+                    console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+                    // Fetch and display nearby hospitals based on these coordinates
+                }, function() {
+                    alert("Geolocation service failed.");
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
+
+        // Example for map integration (Google Maps API or similar)
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+            // Add markers to map (mock data for demonstration)
+            new google.maps.Marker({
+                position: { lat: -34.397, lng: 150.644 },
+                map: map,
+                title: "Hospital 1"
+            });
+            new google.maps.Marker({
+                position: { lat: -34.307, lng: 150.744 },
+                map: map,
+                title: "Hospital 2"
+            });
+        }
+
+        // Load the map script
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
+        script.async = true;
+        document.head.appendChild(script);
+    </script>
+</body>
+</html>

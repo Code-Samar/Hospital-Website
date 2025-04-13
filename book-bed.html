@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Bed - Healthcare Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="./Images/Bed.png">
+    <link rel="stylesheet" href="./css/output.css">
+    <style>
+        /* Set wider container for form and boxes */
+        .form-container {
+            background-color: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 150%; /* Make the form container take full width */
+            max-width: 900px; /* Limit the maximum width */
+            margin: 0 auto; /* Center the form on the page */
+        }
+
+        /* Adjust input field width */
+        select,
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Adjust button */
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.2rem;
+            background-color: #0067fa;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056d4;
+        }
+    </style>
+</head>
+
+<body class="p-0 m-0">
+    <!-- Nav Bar -->
+    <div class="flex items-center justify-around w-full h-20 px-8 bg-white">
+        <div class="flex h-[100%] items-center gap-4">
+            <img src="./Images/Bed.png" alt="Bed" class="h-[3rem]">
+            <span class="text-[#0067fa] text-2xl font-extrabold">Healthcare Portal</span>
+        </div>
+        <div class="flex items-center gap-10">
+            <span><a href="index.html" class="text-base font-medium">Home</a></span>
+            <span><a href="about.html" class="text-base font-medium">About Us</a></span>
+            <span><a href="help.html" class="text-base font-medium">Help</a></span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span><a href="admin.html"
+                    class="text-[#0067fa] text-xl font-semibold border-2 px-5 py-[0.5rem] rounded-2xl border-[#0067fa]">Admin</a></span>
+            <span><a href="patient.html"
+                    class="text-white bg-[#0067fa] text-xl font-semibold px-5 py-[0.5rem] rounded-2xl border-2 border-[#0067fa]">Patient</a></span>
+        </div>
+    </div>
+    <!-- End Nav Bar -->
+
+    <!-- Body Content -->
+    <div class="flex items-center justify-center px-20 py-16 bg-[#eaf1ff]">
+        <div class="flex flex-col items-center gap-8 w-[80%]">
+            <h1 class="text-4xl font-extrabold text-center mb-8">Book a Bed</h1>
+            <div class="form-container">
+                <h2 class="text-2xl font-bold mb-4">Select Your Options</h2>
+                <form action="#" method="POST">
+                    <div class="flex flex-col gap-4 mb-6">
+                        <label for="hospital" class="text-lg font-medium">Choose a Hospital:</label>
+                        <select id="hospital" name="hospital">
+                            <option value="">Select a Hospital</option>
+                            <option value="hospital1">Hospital 1</option>
+                            <option value="hospital2">Hospital 2</option>
+                            <option value="hospital3">Hospital 3</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-4 mb-6">
+                        <label for="bedType" class="text-lg font-medium">Choose Bed Type:</label>
+                        <select id="bedType" name="bedType">
+                            <option value="">Select Bed Type</option>
+                            <option value="single">Single Bed</option>
+                            <option value="double">Double Bed</option>
+                            <option value="suite">Suite</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-4 mb-6">
+                        <label for="checkInDate" class="text-lg font-medium">Check-In Date:</label>
+                        <input type="date" id="checkInDate" name="checkInDate">
+                    </div>
+                    <div class="flex flex-col gap-4 mb-6">
+                        <label for="checkOutDate" class="text-lg font-medium">Check-Out Date:</label>
+                        <input type="date" id="checkOutDate" name="checkOutDate">
+                    </div>
+                    <div class="flex flex-col gap-4 mb-6">
+                        <label for="specialRequests" class="text-lg font-medium">Special Requests:</label>
+                        <textarea id="specialRequests" name="specialRequests" rows="4"
+                            placeholder="Any special requests or requirements?"></textarea>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="flex justify-between items-center mx-32 text-[#3971ea] my-16">
+        <div class="that-text-inFooter">
+            <div class="flex flex-col gap-8">
+                <h3 class="text-lg font-semibold">CodeCrafters</h3>
+                <div class="">
+                    <a class="font-semibold">Follow Us</a>
+                    <div class="text-3xl font-bold cursor-pointer footer-icons">
+                        <i class="fa-brands fa-instagram"></i>
+                        <i class="fa-brands fa-twitter"></i>
+                        <i class="fa-brands fa-spotify"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex gap-24 footer-more-information">
+            <div class="flex flex-col gap-4 font-semibold">Company
+                <ul class="font-normal border-0">
+                    <li><a href="about.html" class="hover:border-b-2">About us</a></li>
+                    <li><a href="#" class="hover:border-b-2">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:border-b-2">Terms of use</a></li>
+                </ul>
+            </div>
+            <div class="flex flex-col gap-4 font-semibold">Community
+                <ul class="font-normal">
+                    <li><a href="#" class="hover:border-b-2">Specialist</a></li>
+                    <li><a href="#" class="hover:border-b-2">Patient</a></li>
+                    <li><a href="#" class="hover:border-b-2">Blog</a></li>
+                </ul>
+            </div>
+            <div class="flex flex-col gap-4 font-semibold">Help
+                <ul class="font-normal">
+                    <li><a href="help.html" class="hover:border-b-2">Support</a></li>
+                    <li><a href="#" class="hover:border-b-2">FAQ</a></li>
+                    <li><a href="#" class="hover:border-b-2">Mobile App</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

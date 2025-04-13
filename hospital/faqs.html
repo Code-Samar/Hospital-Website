@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - Healthcare Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #0d9a20;
+            margin-bottom: 30px;
+        }
+
+        .faq {
+            margin-bottom: 20px;
+        }
+
+        .faq h2 {
+            font-size: 1.5rem;
+            color: #454d6e;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .faq h2:hover {
+            color: #0d9a20;
+        }
+
+        .faq p {
+            display: none;
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+            transition: max-height 0.3s ease-in-out;
+        }
+
+        .faq.open p {
+            display: block;
+        }
+
+        .faq button {
+            display: inline-block;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #0d9a20;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .faq button:hover {
+            background-color: #239923;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Frequently Asked Questions (FAQs)</h1>
+
+        <div class="faq">
+            <h2>1. What is the Healthcare Portal?</h2>
+            <p>The Healthcare Portal is a digital platform that allows users to find hospitals, manage queues, book appointments, and access their health records all in one place.</p>
+        </div>
+
+        <div class="faq">
+            <h2>2. How do I create a Health ID?</h2>
+            <p>You can create a Health ID by visiting the "Create Health ID" page, filling out your personal information, and submitting the form.</p>
+        </div>
+
+        <div class="faq">
+            <h2>3. How can I find nearby hospitals?</h2>
+            <p>By using the "Find Hospitals" feature, you can search for hospitals based on your location or specific requirements. The system will show a list of hospitals along with contact information.</p>
+        </div>
+
+        <div class="faq">
+            <h2>4. How do I manage my queue at a hospital?</h2>
+            <p>Once you book an appointment, the "Manage Queue" feature will allow you to see your current position in the queue, estimated waiting times, and notifications from the hospital.</p>
+        </div>
+
+        <div class="faq">
+            <h2>5. Can I book appointments through the portal?</h2>
+            <p>Yes, you can book appointments with doctors or specialists through the portal. After booking, you'll receive a confirmation and details on the appointment.</p>
+        </div>
+
+        <div class="faq">
+            <h2>6. Is my personal information safe on the portal?</h2>
+            <p>Yes, we use encryption and other security measures to ensure that your personal and medical data is kept secure. Your privacy is a top priority.</p>
+        </div>
+
+        <div class="faq">
+            <h2>7. How do I contact support?</h2>
+            <p>If you need assistance, you can reach out to our support team through the "Contact" page, where you'll find our email and phone number.</p>
+        </div>
+    </div>
+
+    <script>
+        // FAQ toggle logic
+        document.querySelectorAll('.faq h2').forEach(item => {
+            item.addEventListener('click', () => {
+                const faq = item.parentElement;
+                faq.classList.toggle('open');
+            });
+        });
+    </script>
+    
+</body>
+</html>

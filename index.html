@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #d4e3dd; /* Black background */
+            color: #fff; /* White text */
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #5cab82, #333); /* Dark gradient */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            transition: 0.4s;
+        }
+
+        .menu-icon::before,
+        .menu-icon::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            transition: 0.4s;
+        }
+
+        .menu-icon::before {
+            top: -10px;
+        }
+
+        .menu-icon::after {
+            top: 10px;
+        }
+
+        .menu {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #222; /* Dark sidebar */
+            color: white;
+            padding-top: 20px;
+            transition: left 0.3s;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .menu .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .menu .logo img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu ul li {
+            padding: 15px;
+            text-align: left;
+        }
+
+        .menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: block;
+        }
+
+        .menu ul li a:hover {
+            background-color: #444; /* Slightly lighter dark color */
+        }
+
+        .menu.active {
+            left: 0;
+        }
+
+        .menu-icon.open {
+            background-color: transparent;
+        }
+
+        .menu-icon.open::before {
+            transform: rotate(45deg);
+            top: 0;
+        }
+
+        .menu-icon.open::after {
+            transform: rotate(-45deg);
+            top: 0;
+        }
+
+        main {
+            padding: 40px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Added gap between boxes */
+            justify-content: center; /* Center boxes horizontally */
+        }
+
+        .box {
+            background: #333; /* Dark background for boxes */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 200px;
+            padding: 20px;
+            margin: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .box:hover {
+            background-color: #444; /* Slightly lighter dark color */
+            transform: scale(1.05);
+        }
+
+        .box i {
+            font-size: 2rem;
+            color: #00e676; /* Green for icons */
+            margin-bottom: 10px;
+        }
+
+        .box h3 {
+            margin: 10px 0;
+            color: #00e676; /* Green text */
+        }
+
+        .box a {
+            text-decoration: none;
+            color: #1e90ff; /* Blue text */
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .box a:hover {
+            color: #87cefa; /* Lighter blue on hover */
+        }
+
+        .hospital-image {
+            width: 100%; /* Decrease the width to 80% of the container */
+            max-width: 300px; /* Set a maximum width to avoid overly large images */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin: 20px auto; /* Center the image horizontally and add margin above and below */
+            display: block; /* Ensure the image is displayed as a block element */
+        }
+
+        .header-logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="hospitallogo.jpg" alt="Hospital Logo" class="header-logo"> <!-- Added logo -->
+        <div style="position: relative;">
+            <div class="menu-icon" id="menu-icon"></div>
+            <span style="color: white; font-size: 1.2rem; position: absolute; top: 35px; left: 20px;">Menu</span>
+        </div>
+        <h1>Healthcare Portal</h1>
+    </header>
+
+    <!-- Sidebar Menu -->
+    <div class="menu" id="menu">
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="register.html"><i class="fas fa-user-plus"></i> Register / Login</a></li>
+            <li><a href="create-health-id.html"><i class="fas fa-id-card"></i> Create Health ID</a></li>
+            <li><a href="#"><i class="fas fa-globe"></i> English</a></li>
+            <li><a href="faqs.html"><i class="fas fa-question-circle"></i> FAQs</a></li>
+            <li><a href="feedback.html"><i class="fas fa-comment-dots"></i> Feedback</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="find-nodal-officers.html"><i class="fas fa-users"></i> List of Nodal Officers</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <div class="box">
+            <i class="fas fa-hospital"></i>
+            <h3>Find Hospitals</h3>
+            <a href="find-hospitals.html">Find Hospitals</a>
+        </div>
+        <div class="box">
+            <i class="fas fa-calendar-check"></i>
+            <h3>Manage Queue</h3>
+            <a href="queue.html">Manage Queue</a>
+        </div>
+        <div class="box">
+            <i class="fas fa-calendar-alt"></i>
+            <h3>Appointments</h3>
+            <a href="appointments.html">Appointments</a>
+        </div>
+        <div class="box">
+            <i class="fas fa-bed"></i>
+            <h3>Beds</h3>
+            <a href="beds.html">Beds
+                
+            </a>
+        </div>
+        <div class="box">
+            <i class="fas fa-pills"></i>
+            <h3>Medication</h3>
+            <a href="medication.html">Medication</a>
+        </div>
+        <div class="box">
+            <i class="fas fa-user"></i>
+            <h3>View Profile</h3>
+            <a href="profile.html">View Profile</a>
+        </div>
+        <!-- New Box for Departments & Doctors -->
+        <div class="box">
+            <i class="fas fa-user-md"></i>
+            <h3>Departments & Doctors</h3>
+            <a href="departments.html">Choose Doctors</a>
+        </div>
+        <!-- New Box for Admission -->
+        <div class="box">
+            <i class="fas fa-clipboard-list"></i>
+            <h3>Admission</h3>
+            <a href="admission.html">Admission</a>
+        </div>
+    </main>
+
+    <!-- Hospital Image -->
+    <section>
+        <img src="hospital.jpg" alt="Hospital" class="hospital-image">
+    </section>
+
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const menu = document.getElementById('menu');
+
+        // Toggle menu visibility
+        menuIcon.addEventListener('click', () => {
+            menu.classList.toggle('active');
+            menuIcon.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

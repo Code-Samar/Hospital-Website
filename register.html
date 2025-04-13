@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Healthcare Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body with white background and black text */
+        body {
+            background: url('background-register.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Roboto', sans-serif;
+            color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+
+        /* Semi-transparent overlay for effect */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 1;
+        }
+
+        /* Main container for registration form */
+        #register-section {
+            position: relative;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            z-index: 2; /* Ensure the form is above the overlay */
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover effect for the registration box */
+        #register-section:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Glowing effects for headings and buttons */
+        h2 {
+            font-size: 2rem;
+            color: #000;
+            text-shadow: 0 0 10px #ddd;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* Glowing Input fields */
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.05);
+            color: #000;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease;
+        }
+
+        input:focus {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Submit Button Styling */
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, #000, #fff);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #fff, #000);
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Link Styling */
+        a {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            text-shadow: 0 0 5px #aaa;
+        }
+
+        /* Status message styling */
+        #register-status {
+            color: #ff5252;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* Back to Home Button Styling */
+        .back-to-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.1);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-shadow: 0 0 2px #000;
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .back-to-home:hover {
+            background: rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Semi-transparent overlay -->
+    <div class="overlay"></div>
+
+    <!-- Back to Home link -->
+    <a href="index.html" class="back-to-home">Back to Home</a>
+
+    <section id="register-section" class="box-container">
+        <h2>Create an Account</h2>
+        <form id="register-form">
+            <label for="register-username">Username:</label>
+            <input type="text" id="register-username" placeholder="Enter your username" required>
+            
+            <label for="register-email">Email:</label>
+            <input type="email" id="register-email" placeholder="Enter your email" required>
+            
+            <label for="register-password">Password:</label>
+            <input type="password" id="register-password" placeholder="Enter your password" required>
+            
+            <label for="register-confirm-password">Confirm Password:</label>
+            <input type="password" id="register-confirm-password" placeholder="Confirm your password" required>
+            
+            <button type="submit">Create Account</button>
+        </form>
+        <p id="register-status"></p>
+        <p>Already have an account? <a href="login.html">Login here</a>.</p>
+    </section>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

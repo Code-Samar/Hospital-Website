@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departments & Doctors</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/output.css">
+</head>
+<body class="p-0 m-0">
+
+    <!-- Nav Bar -->
+    <div class="flex items-center justify-around w-full h-20 px-8 bg-white">
+        <div class="flex h-[100%] items-center gap-4">
+            <img src="./Images/Bed.png" alt="Bed" class="h-[3rem]">
+            <span class="text-[#0067fa] text-2xl font-extrabold">Medicare</span>
+        </div>
+        <div class="flex items-center gap-10">
+            <span><a href="index.html" class="text-base font-medium">Home</a></span>
+            <span><a href="about.html" class="text-base font-medium">About Us</a></span>
+            <span><a href="help.html" class="text-base font-medium">Help</a></span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span><a href="#" class="text-[#0067fa] text-xl font-semibold border-2 px-5 py-[0.5rem] rounded-2xl border-[#0067fa]">Admin</a></span>
+            <span><a href="#" class="text-white bg-[#0067fa] text-xl font-semibold px-5 py-[0.5rem] rounded-2xl border-2 border-[#0067fa]">Patient</a></span>
+        </div>
+    </div>
+    <!-- End Nav Bar -->
+
+    <!-- Department & Doctors Section -->
+    <div class="flex flex-col items-center justify-center px-20 bg-[#eaf1ff] h-[43rem]">
+        <h1 class="font-bold text-5xl text-[#0067fa] mb-8">Select Department & Doctors</h1>
+
+        <!-- Department Dropdown -->
+        <div class="mb-8">
+            <label for="departments" class="text-2xl font-semibold mb-2 block">Select Department:</label>
+            <select id="departments" class="px-4 py-2 rounded-lg text-xl border-2 border-[#0067fa] w-[20rem]">
+                <option value="">-- Select a Department --</option>
+                <option value="cardiology">Cardiology</option>
+                <option value="neurology">Neurology</option>
+                <option value="orthopedics">Orthopedics</option>
+                <option value="pediatrics">Pediatrics</option>
+                <option value="dermatology">Dermatology</option>
+            </select>
+        </div>
+
+        <!-- Doctor List (Dynamic based on department selection) -->
+        <div class="w-full">
+            <h2 class="font-bold text-3xl text-center text-[#0067fa] mb-4">Available Doctors</h2>
+            <div id="doctorList" class="flex justify-around flex-wrap">
+                <!-- Doctors will be dynamically displayed here -->
+                <!-- Example doctor card -->
+                <div class="doctor-card hidden flex-col items-center bg-white p-4 rounded-lg shadow-md w-[18rem] mb-6">
+                    <img src="doctor.png" alt="Doctor" class="w-4 h-4 rounded-full mb-4">
+                    <h3 class="font-bold text-xl">Dr. Smith</h3>
+                    <p class="text-lg">Cardiologist</p>
+                    <a href="#" class="bg-[#0067fa] text-white font-semibold text-lg px-4 py-2 mt-4 rounded-lg">Book Appointment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS to dynamically load doctors based on department -->
+    <script>
+        const departments = document.getElementById("departments");
+        const doctorList = document.getElementById("doctorList");
+
+        const doctors = {
+            cardiology: [
+                { name: 'Dr. John Smith', specialty: 'Cardiologist', image: './Images/doctor1.png' },
+                { name: 'Dr. Emily Davis', specialty: 'Cardiologist', image: './Images/doctor2.png' }
+            ],
+            neurology: [
+                { name: 'Dr. Rachel Lee', specialty: 'Neurologist', image: './Images/doctor3.png' },
+                { name: 'Dr. Michael Brown', specialty: 'Neurologist', image: './Images/doctor4.png' }
+            ],
+            orthopedics: [
+                { name: 'Dr. Daniel Johnson', specialty: 'Orthopedic Surgeon', image: './Images/doctor5.png' }
+            ],
+            pediatrics: [
+                { name: 'Dr. Linda Thompson', specialty: 'Pediatrician', image: './Images/doctor6.png' }
+            ],
+            dermatology: [
+                { name: 'Dr. Susan Miller', specialty: 'Dermatologist', image: './Images/doctor7.png' }
+            ]
+        };
+
+        departments.addEventListener('change', function() {
+            const selectedDepartment = this.value;
+            doctorList.innerHTML = '';
+
+            if (selectedDepartment && doctors[selectedDepartment]) {
+                doctors[selectedDepartment].forEach(doctor => {
+                    const doctorCard = document.createElement('div');
+                    doctorCard.classList.add('doctor-card', 'flex-col', 'items-center', 'bg-white', 'p-4', 'rounded-lg', 'shadow-md', 'w-[18rem]', 'mb-6');
+
+                    doctorCard.innerHTML = `
+                        <img src="${doctor.image}" alt="Doctor" class="w-1 h-1 rounded-full mb-4">
+                        <h3 class="font-bold text-xl">${doctor.name}</h3>
+                        <p class="text-lg">${doctor.specialty}</p>
+                        <a href="#" class="bg-[#0067fa] text-white font-semibold text-lg px-4 py-2 mt-4 rounded-lg">Book Appointment</a>
+                    `;
+
+                    doctorList.appendChild(doctorCard);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
